@@ -13,7 +13,7 @@ simple file hosting system
 1. install python3
 2. install requirements: `pip install -r requirements.txt`
 3. add recaptcha keys and smtp credentials in .env.example
-4. rename the .env.example to .env
+4. rename the `.env.example` to `.env`
 5. start the app: `python3 app.py`
 
 ## optional environment variables
