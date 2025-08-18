@@ -8,9 +8,13 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import RequestEntityTooLarge
+from dotenv import load_dotenv
 from config import Config
 from models import db, User, File
 from forms import LoginForm, RegistrationForm, UploadForm, FilePasswordForm, ForgotPasswordForm, ResetPasswordForm
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def create_app():
