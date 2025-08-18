@@ -372,7 +372,6 @@ if you did not request a password reset, please ignore this email.
     
     return app
 
-
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
