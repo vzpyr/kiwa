@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}page not found - kiwa{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <h1>404</h1>
+    <h2>page not found</h2>
+    <p>the page you're looking for doesn't exist or has been moved.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">go home</a>
+</div>
+{% endblock %}

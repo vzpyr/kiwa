@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}login - kiwa{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-form">
+        <h2 class="auth-title">login</h2>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-input") }}
+                {% if form.username.errors %}
+                    <div class="form-errors">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-input") }}
+                {% if form.password.errors %}
+                    <div class="form-errors">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group form-checkbox">
+                {{ form.remember_me() }}
+                {{ form.remember_me.label() }}
+            </div>
+            
+            {% if form.recaptcha %}
+            <div class="form-group">
+                {{ form.recaptcha() }}
+                {% if form.recaptcha.errors %}
+                    <div class="form-errors">
+                        {% for error in form.recaptcha.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            {# Display form-level errors (like ReCaptcha) #}
+            {% if form.errors %}
+                {% for field, errors in form.errors.items() %}
+                    {% if field not in ['username', 'password', 'recaptcha'] %}
+                        <div class="form-errors">
+                            {% for error in errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+        
+        <p class="auth-footer">
+            <a href="{{ url_for('forgot_password') }}">forgot password?</a> &middot;
+            don't have an account? <a href="{{ url_for('register') }}">register here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

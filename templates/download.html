@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ file.original_filename }} - kiwa{% endblock %}
+
+{% block content %}
+<div class="download-container">
+    {% if password_protected %}
+        <div class="password-form">
+            <h2>password protected</h2>
+            <p>this file is protected with a password.</p>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-input") }}
+                    {% if form.password.errors %}
+                        <div class="form-errors">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary btn-block") }}
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="file-details">
+            <h2>{{ file.original_filename }}</h2>
+            <div class="file-meta">
+                <p><strong>size:</strong> {{ file.file_size | filesizeformat }}</p>
+                <p><strong>uploaded:</strong> {{ file.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                {% if file.expiry_date %}
+                    <p><strong>expires:</strong> {{ file.expiry_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                {% endif %}
+                {% if file.download_limit %}
+                    <p><strong>downloads:</strong> {{ file.download_count }}/{{ file.download_limit }}</p>
+                {% else %}
+                    <p><strong>downloads:</strong> {{ file.download_count }}</p>
+                {% endif %}
+            </div>
+            
+            {% if file.file_size < 10 * 1024 * 1024 %}  {# Less than 10MB #}
+                {% if file.original_filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')) %}
+                    <div class="file-preview">
+                        <img src="{{ url_for('preview_file', file_id=file.id) }}" 
+                             alt="{{ file.original_filename }}">
+                    </div>
+                {% elif file.original_filename.lower().endswith(('.mp4', '.webm', '.ogg')) %}
+                    <div class="file-preview">
+                        <video controls>
+                            <source src="{{ url_for('preview_file', file_id=file.id) }}" 
+                                    type="video/{{ file.original_filename.split('.')[-1] }}">
+                            your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% endif %}
+            {% endif %}
+            
+            <div class="download-actions">
+                <a href="{{ url_for('download_file', file_id=file.id) }}" class="btn btn-primary btn-large">download file</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

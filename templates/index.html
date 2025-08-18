@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-container">
+        <h1 class="hero-title">simple file hosting</h1>
+        <p class="hero-description">kiwa lets you share files easily and without any limits</p>
+        {% if not current_user.is_authenticated %}
+            <div class="hero-actions">
+                <a href="{{ url_for('register') }}" class="btn btn-primary">get started</a>
+            </div>
+        {% else %}
+            <div class="hero-actions">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">dashboard</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="features">
+    <div class="features-container">
+        <div class="feature">
+            <h3>⚡ fast</h3>
+            <p>upload and download files blazingly fast with our simple interface</p>
+        </div>
+        <div class="feature">
+            <h3>🔒 secure</h3>
+            <p>files are stored securely and can be password protected</p>
+        </div>
+        <div class="feature">
+            <h3>⌚ flexible</h3>
+            <p>set expiry dates and download limits to control access</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
