@@ -1,5 +1,5 @@
 # kiwa
-simple file hosting system
+simple flask file hosting system
 <img width="2327" height="1339" alt="screenshot" src="https://github.com/user-attachments/assets/1760e223-38b1-4aee-8539-2f8345ee3e6d" />
 
 # features
